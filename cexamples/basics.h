@@ -10,4 +10,11 @@ typedef struct tag2{
 	int i;
 	char c;
 }PairOfIntAndCharNonPacked;
+
+typedef union tag3{
+	unsigned char c;
+	unsigned int i;
+}UnionOfIntAndChar;
+
+#define external_sizeof(type)	({type t[2]; (int)(t+1)-(int)t;})
 #endif

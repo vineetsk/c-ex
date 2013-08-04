@@ -58,3 +58,25 @@ TEST_F(TestBasics, sizeOfNonPackedStruct){
 	int size = sizeof(PairOfIntAndCharNonPacked);
 	EXPECT_EQ(8, size);
 }
+
+TEST_F(TestBasics, sizeOfUnion){
+	int size = sizeof(UnionOfIntAndChar);
+	EXPECT_EQ(4, size);
+}
+
+TEST_F(TestBasics, overlap){
+	UnionOfIntAndChar u;
+	u.i = 0xaabbccdd;
+	EXPECT_EQ(0xdd, u.c);
+	
+	u.c = 0x10;
+	EXPECT_EQ(0xaabbcc10, u.i);
+}
+
+TEST_F(TestBasics, external_sizeOf_Char){
+	EXPECT_EQ(1, external_sizeof(char));
+}
+
+TEST_F(TestBasics, external_sizeOf_Int){
+	EXPECT_EQ(4, external_sizeof(int));
+}
