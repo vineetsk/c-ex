@@ -32,6 +32,10 @@ TEST_F(TestBasics, googleTestMacroUsage){
 	EXPECT_STRCASENE("same", "Not Same");
 }
 
+TEST_F(TestBasics, DISABLED_test){
+	EXPECT_TRUE(false);
+}
+
 TEST_F(TestBasics, sizeOfChar){
 	int size = sizeof(char);
 	EXPECT_EQ(1, size);
@@ -80,3 +84,20 @@ TEST_F(TestBasics, external_sizeOf_Char){
 TEST_F(TestBasics, external_sizeOf_Int){
 	EXPECT_EQ(4, external_sizeof(int));
 }
+
+TEST_F(TestBasics, external_sizeOf_Struct){
+	EXPECT_EQ(8, external_sizeof(PairOfIntAndCharNonPacked));
+}
+
+TEST_F(TestBasics, external_sizeOf_PackedStruct){
+	int size = external_sizeof(PairOfIntAndChar);
+	EXPECT_EQ(5, size);
+}
+
+#if 0 /* TODO */
+TEST_F(TestBasics, DISABLED_xternal_sizeOf_4){
+	int size = external_sizeof(4);
+	EXPECT_EQ(4, size);
+}
+#endif
+
