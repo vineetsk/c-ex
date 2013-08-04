@@ -1,6 +1,8 @@
 #include "basics.h"
 #include "gtest/gtest.h"
-
+extern "C"{
+	bool basics_isSizeEqForAnyPointer();
+}
 class TestBasics : public testing::Test{
 
 	virtual void SetUp(void){
@@ -47,7 +49,12 @@ TEST_F(TestBasics, sizeOfAnyPointer){
 	EXPECT_TRUE(basics_isSizeEqForAnyPointer());
 }
 
-TEST_F(TestBasics, sizeOfStruct){
+TEST_F(TestBasics, sizeOfPackedStruct){
 	int size = sizeof(PairOfIntAndChar);
-	EXPECT_NE(3, size);
+	EXPECT_EQ(5, size);
+}
+
+TEST_F(TestBasics, sizeOfNonPackedStruct){
+	int size = sizeof(PairOfIntAndCharNonPacked);
+	EXPECT_EQ(8, size);
 }

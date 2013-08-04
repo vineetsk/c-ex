@@ -1,0 +1,5 @@
+make
+make -p -f /dev/null	#show all make predefines
+
+git
+git reset --soft HEAD~1 #undo current commit with preserving files making it to be committed state

@@ -25,6 +25,9 @@ CPPFLAGS += -I$(GTEST_DIR)/include
 # Flags passed to the C++ compiler.
 CXXFLAGS += -g -Wall -Wextra --coverage
 
+# Flags passed to the C compiler.
+CFLAGS = $(CXXFLAGS) -x c -std=c90
+
 # All tests produced by this Makefile.  Remember to add new tests you
 # created to the list.
 TESTS = testBasics
@@ -71,8 +74,8 @@ gtest_main.a : gtest-all.o gtest_main.o
 # function.
 
 basics.o : $(USER_DIR)/basics.c $(USER_DIR)/basics.h $(GTEST_HEADERS)
-	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/basics.c
-
+	$(CXX) $(CFLAGS) -c $(USER_DIR)/basics.c
+	
 testBasics.o : $(USER_DIR)/testBasics.cc \
                      $(USER_DIR)/testBasics.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/testBasics.cc
