@@ -74,10 +74,10 @@ gtest_main.a : gtest-all.o gtest_main.o
 # function.
 
 basics.o : $(USER_DIR)/basics.c $(USER_DIR)/basics.h $(GTEST_HEADERS)
+	splint $(USER_DIR)/basics.c
 	$(CXX) $(CFLAGS) -c $(USER_DIR)/basics.c
 	
-testBasics.o : $(USER_DIR)/testBasics.cc \
-                     $(USER_DIR)/testBasics.h $(GTEST_HEADERS)
+testBasics.o : $(USER_DIR)/testBasics.cc $(USER_DIR)/testBasics.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/testBasics.cc
 
 testBasics : basics.o testBasics.o gtest_main.a
