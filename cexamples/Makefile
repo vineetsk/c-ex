@@ -78,19 +78,18 @@ gtest_main.a : gtest-all.o gtest_main.o
 basics.o : $(USER_DIR)/basics.c $(USER_DIR)/basics.h $(GTEST_HEADERS)
 	splint $(USER_DIR)/basics.c
 	$(CXX) $(CFLAGS) -c $(USER_DIR)/basics.c
-	
+
 testBasics.o : $(USER_DIR)/testBasics.cc $(USER_DIR)/testBasics.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/testBasics.cc
 
 testBasics : basics.o testBasics.o gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
 
-binaryTree.o : $(USER_DIR)/binaryTree.c $(USER_DIR)/binaryTree.h $(GTEST_HEADERS)
-	splint $(USER_DIR)/binaryTree.c
-	$(CXX) $(CFLAGS) -c $(USER_DIR)/binaryTree.c
-	
+BinaryTree.o : $(USER_DIR)/BinaryTree.c $(USER_DIR)/BinaryTree.h $(GTEST_HEADERS)
+	$(CXX) $(CFLAGS) -c $(USER_DIR)/BinaryTree.c
+
 testBinaryTree.o : $(USER_DIR)/testBinaryTree.cc $(USER_DIR)/testBinaryTree.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/testBinaryTree.cc
-	
-testBinaryTree : binaryTree.o testBinaryTree.o gtest_main.a
+
+testBinaryTree : BinaryTree.o testBinaryTree.o gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
