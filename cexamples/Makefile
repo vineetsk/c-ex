@@ -31,7 +31,7 @@ CFLAGS = $(CXXFLAGS) -x c -std=c90
 
 # All tests produced by this Makefile.  Remember to add new tests you
 # created to the list.
-TESTS = testBasics
+TESTS = testBasics testBinaryTree
 
 # All Google Test headers.  Usually you shouldn't change this
 # definition.
@@ -42,6 +42,7 @@ GTEST_HEADERS = $(GTEST_DIR)/include/gtest/*.h \
 
 all : $(TESTS)
 		./testBasics
+		./testBinaryTree
 
 clean :
 	rm -f $(TESTS) gtest.a gtest_main.a *.o *.gcda *.gcno
@@ -82,4 +83,14 @@ testBasics.o : $(USER_DIR)/testBasics.cc $(USER_DIR)/testBasics.h $(GTEST_HEADER
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/testBasics.cc
 
 testBasics : basics.o testBasics.o gtest_main.a
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
+
+binaryTree.o : $(USER_DIR)/binaryTree.c $(USER_DIR)/binaryTree.h $(GTEST_HEADERS)
+	splint $(USER_DIR)/binaryTree.c
+	$(CXX) $(CFLAGS) -c $(USER_DIR)/basics.c
+	
+testBinaryTree.o : $(USER_DIR)/testBinaryTree.cc $(USER_DIR)/testBinaryTree.h $(GTEST_HEADERS)
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/testBinaryTree.cc
+	
+testBinaryTree : binaryTree.o testBinaryTree.o gtest_main.a
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -lpthread $^ -o $@
