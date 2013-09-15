@@ -87,7 +87,7 @@ testBasics : basics.o testBasics.o gtest_main.a
 
 binaryTree.o : $(USER_DIR)/binaryTree.c $(USER_DIR)/binaryTree.h $(GTEST_HEADERS)
 	splint $(USER_DIR)/binaryTree.c
-	$(CXX) $(CFLAGS) -c $(USER_DIR)/basics.c
+	$(CXX) $(CFLAGS) -c $(USER_DIR)/binaryTree.c
 	
 testBinaryTree.o : $(USER_DIR)/testBinaryTree.cc $(USER_DIR)/testBinaryTree.h $(GTEST_HEADERS)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $(USER_DIR)/testBinaryTree.cc
