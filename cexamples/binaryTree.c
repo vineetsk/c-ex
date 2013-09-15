@@ -1,12 +1,22 @@
 #include "BinaryTree.h"
 #include <stdlib.h>
+static BinaryNode* currentNode = NULL;
 
-BinaryNode* newBinaryNode(int data){
-	BinaryNode* btree = (BinaryNode*)malloc(sizeof(BinaryNode));
-	btree->data = data;
-	return btree;
+void commit(void){
+	currentNode = NULL;
 }
 
-int btree_getData(BinaryNode* pbTree){
-	return pbTree->data;
+BinaryNode* newBinaryNode(int data){
+	BinaryNode* btree = (BinaryNode*)calloc(1, sizeof(BinaryNode));
+	btree->data = data;
+	if(NULL == currentNode){
+		currentNode = btree;
+	}
+	else{
+		currentNode->pLeftChild = btree;
+		if(currentNode->data > data){
+			currentNode->pRightChild = btree;
+		}
+	}
+	return btree;
 }

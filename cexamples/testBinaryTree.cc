@@ -3,11 +3,17 @@ extern "C"{
 #include "BinaryTree.h"
 }
 class TestBinaryNode : public testing::Test{
-
+	public:
+		BinaryNode* rootNode;
+		const int nodeValue = 10;
+	private:
 	virtual void SetUp(void){
+		rootNode = newBinaryNode(nodeValue);
 	}
 	
 	virtual void TearDown(void){
+		free(rootNode);
+		commit();
 	}
 };
 
@@ -41,13 +47,23 @@ TEST_F(TestBinaryNode, googleTestMacroUsage){
 	   and less than or equal to the value of any descendant on its right branch.
 ***/
 
-TEST_F(TestBinaryNode, createBinTree){
-	BinaryNode* binTree = newBinaryNode(10);
-	EXPECT_EQ(10, btree_getData(binTree));
+TEST_F(TestBinaryNode, whenCheckedDataThenItIsANodeData){
+	EXPECT_EQ(nodeValue, rootNode->data);
 }
 
-TEST_F(TestBinaryNode, DISABLED_whenRootValuesIsTenAndChildValueIsElevenThenChildValueIsStoredAsLeftChild){
-	BinaryNode* binTree = newBinaryNode(10);
-	BinaryNode* next = newBinaryNode(10);
-	EXPECT_EQ(10, btree_getData(binTree));
+TEST_F(TestBinaryNode, whenCreatedNewNodeThenItsChildrenAreNull){
+	EXPECT_EQ(NULL, rootNode->pLeftChild);
+	EXPECT_EQ(NULL, rootNode->pRightChild);
+}
+
+TEST_F(TestBinaryNode, whenRootValuesIsLessThanNewNodeThenNewNodeIsStoredAsLeftChildOfRoot){
+	BinaryNode* nextNode = newBinaryNode(nodeValue + 1);
+	EXPECT_EQ(nextNode, rootNode->pLeftChild);
+	free(nextNode);
+}
+
+TEST_F(TestBinaryNode, whenRootValuesGreaterThanNewNodeThenNewNodeIsStoredAsRightChildOfRoot){
+	BinaryNode* nextNode = newBinaryNode(nodeValue - 1);
+	EXPECT_EQ(nextNode, rootNode->pRightChild);
+	free(nextNode);
 }

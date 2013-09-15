@@ -1,9 +1,11 @@
 #ifndef __BinaryNode_H
 #define __BinaryNode_H
-typedef struct _Tag{
+typedef struct BinNode{
 	int data;
+	struct BinNode* pLeftChild;
+	struct BinNode* pRightChild;
 }BinaryNode;
 
 BinaryNode* newBinaryNode(int data);
-int btree_getData(BinaryNode* pbTree);
+void commit(void);
 #endif
